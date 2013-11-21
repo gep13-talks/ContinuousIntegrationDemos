@@ -5,6 +5,8 @@
 
 $psake.use_exit_on_error = $true
 
+Import-Module "..\SharedBinaries\psake\taeamcity.psm1"
+
 properties {
 	$config = 'Debug';
 	$projectName = "CIDemo";
@@ -102,4 +104,6 @@ Task -Name TestSolution -Description "Uses NUnit to execute Unit Tests for Solut
 	}
 	
 	Move-Item "TestResult.xml" $testOutputDirectory
+	
+	TeamCity-ImportNUnitReport "$testOutputDirectory\TestResult.xml"
 }
