@@ -5,7 +5,7 @@
 
 $psake.use_exit_on_error = $true
 
-Import-Module "..\SharedBinaries\psake\taeamcity.psm1"
+Import-Module "..\SharedBinaries\psake\teamcity.psm1"
 
 properties {
 	$config = 'Debug';
