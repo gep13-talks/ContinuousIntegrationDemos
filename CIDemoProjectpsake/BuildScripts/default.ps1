@@ -105,5 +105,5 @@ Task -Name TestSolution -Description "Uses NUnit to execute Unit Tests for Solut
 	
 	Move-Item "TestResult.xml" $testOutputDirectory
 	
-	TeamCity-ImportNUnitReport "$testOutputDirectory\TestResult.xml"
+	# TeamCity-ImportNUnitReport "$testOutputDirectory\TestResult.xml"
 }
