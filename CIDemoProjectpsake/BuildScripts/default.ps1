@@ -74,9 +74,19 @@ Task -Name __RemoveTestArtifactsDirectory -Description $private -Action {
 
 Task -Name RebuildSolution -Depends CleanSolution, __CreateBuildArtifactsDirectory, __CreateTestArtifactsDirectory, BuildSolution, TestSolution -Description "Rebuilds the main solution for the package"
 
+# nuget tasks
+Task -Name NugetPackageRestore -Description "Run Nuget Package Restore before executing the build" -Action {
+	$sourceDirectory = get-sourceDirectory;
+	$nugetExe = Join-Path -Path $sourceDirectory -ChildPath ".nuget/NuGet.exe"
+	
+	exec {
+		& $nugetExe restore "$sourceDirectory\CIDemoProject.sln"
+	}
+}
+
 # build tasks
 
-Task -Name BuildSolution -Depends __VerifyConfiguration -Description "Builds the main solution for the package" -Action {
+Task -Name BuildSolution -Depends __VerifyConfiguration, NugetPackageRestore -Description "Builds the main solution for the package" -Action {
 	$sourceDirectory = get-sourceDirectory;
 	exec { 
 		msbuild "$sourceDirectory\CIDemoProject.sln" /t:Build /p:Configuration=$config

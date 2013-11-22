@@ -33,6 +33,7 @@ if '%version%'=='' (
 )
 
 powershell -NoProfile -ExecutionPolicy bypass -Command "%~dp0/BuildScripts/trigger-build.ps1 -Action %action% -Config %config% -PackageVersion %version%"
+pause
 goto :eof
 
 :help
